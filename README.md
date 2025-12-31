@@ -1,45 +1,4 @@
-# 🎬 Stremio Easynews French Addon
 
-Addon Stremio exclusif pour contenus français (Films & Séries) via Easynews.
-
-## 🚀 Installation Rapide
-
-### Sur PC/Mac
-
-```bash
-# 1. Installe les dépendances
-npm install
-
-# 2. Configure .env avec tes identifiants Easynews
-# EASYNEWS_USERNAME=ton_username
-# EASYNEWS_PASSWORD=ton_password
-
-# 3. Lance le serveur
-npm start
-
-# 4. Ouvre ton navigateur
-http://127.0.0.1:7000
-```
-
-### Sur Android (Termux)
-
-```bash
-# 1. Installe Termux depuis F-Droid
-pkg update && pkg upgrade
-pkg install nodejs git
-termux-setup-storage
-
-# 2. Clone le repo
-git clone https://github.com/Yannick057/stremio-easynews-french.git
-cd stremio-easynews-french
-
-# 3. Installe et configure
-npm install
-nano .env  # Configure tes identifiants
-npm start
-
-# 4. Ouvre http://127.0.0.1:7000
-```
 
 ## ✨ Fonctionnalités
 
