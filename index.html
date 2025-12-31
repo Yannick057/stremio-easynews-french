@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easynews French Addon - Configuration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; padding: 20px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .container {
+            background: white; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px; width: 100%; padding: 40px;
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #667eea; font-size: 28px; margin-bottom: 10px; }
+        .header p { color: #666; font-size: 14px; }
+        .logo {
+            width: 80px; height: 80px; margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 40px;
+        }
+        .form-group { margin-bottom: 20px; }
+        label {
+            display: block; color: #333; font-weight: 600;
+            margin-bottom: 8px; font-size: 14px;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%; padding: 12px 15px;
+            border: 2px solid #e0e0e0; border-radius: 10px;
+            font-size: 14px; transition: all 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none; border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .checkbox-group {
+            display: flex; align-items: center; gap: 10px; margin-top: 10px;
+        }
+        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        .checkbox-group label { margin: 0; font-weight: 400; cursor: pointer; }
+        .advanced-options {
+            background: #f8f9fa; padding: 20px;
+            border-radius: 10px; margin-top: 20px;
+        }
+        .advanced-options h3 {
+            color: #667eea; font-size: 16px; margin-bottom: 15px;
+        }
+        .button-group {
+            display: flex; flex-direction: column;
+            gap: 12px; margin-top: 30px;
+        }
+        .btn {
+            padding: 15px 30px; border: none; border-radius: 10px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s; text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .btn-secondary {
+            background: #f8f9fa; color: #333; border: 2px solid #e0e0e0;
+        }
+        .btn-secondary:hover { background: #e9ecef; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .info-box {
+            background: #e7f3ff; border-left: 4px solid #2196F3;
+            padding: 15px; border-radius: 5px; margin-bottom: 20px;
+            font-size: 13px; color: #0c5da5;
+        }
+        .success-box {
+            background: #d4edda; border-left: 4px solid #28a745;
+            padding: 15px; border-radius: 5px; margin-bottom: 20px;
+            font-size: 13px; color: #155724; display: none;
+        }
+        .error-box {
+            background: #f8d7da; border-left: 4px solid #dc3545;
+            padding: 15px; border-radius: 5px; margin-bottom: 20px;
+            font-size: 13px; color: #721c24; display: none;
+        }
+        .languages-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 10px; margin-top: 10px;
+        }
+        .language-tag {
+            background: #e7f3ff; padding: 8px 12px; border-radius: 5px;
+            font-size: 12px; color: #0c5da5; text-align: center;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎬</div>
+            <h1>Easynews French Addon</h1>
+            <p>Configuration pour Stremio</p>
+        </div>
+        <div class="info-box">ℹ️ Configure ton addon avec tes identifiants Easynews pour accéder aux contenus français exclusifs (Films & Séries)</div>
+        <div class="success-box" id="successBox">✅ Configuration sauvegardée ! Tu peux maintenant installer l'addon.</div>
+        <div class="error-box" id="errorBox">❌ Erreur : Vérifie tes identifiants Easynews</div>
+        <form id="configForm">
+            <div class="form-group">
+                <label for="username">🔐 Username Easynews *</label>
+                <input type="text" id="username" name="username" placeholder="ton_username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">🔑 Password Easynews *</label>
+                <input type="password" id="password" name="password" placeholder="ton_password" required>
+            </div>
+            <div class="advanced-options">
+                <h3>⚙️ Options avancées</h3>
+                <div class="form-group">
+                    <label for="maxResults">📊 Nombre max de résultats</label>
+                    <select id="maxResults" name="maxResults">
+                        <option value="10">10 résultats</option>
+                        <option value="20" selected>20 résultats</option>
+                        <option value="30">30 résultats</option>
+                        <option value="50">50 résultats</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="minQuality">🎥 Qualité minimale</label>
+                    <select id="minQuality" name="minQuality">
+                        <option value="480p">480p et plus</option>
+                        <option value="720p" selected>720p et plus</option>
+                        <option value="1080p">1080p et plus</option>
+                        <option value="4k">4K uniquement</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>🇫🇷 Langues détectées</label>
+                    <div class="languages-grid">
+                        <div class="language-tag">FRENCH / FR</div>
+                        <div class="language-tag">VF / VFF / VFQ</div>
+                        <div class="language-tag">TRUEFRENCH</div>
+                        <div class="language-tag">MULTI ✨</div>
+                        <div class="language-tag">VOSTFR</div>
+                        <div class="language-tag">SUBFRENCH</div>
+                    </div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="cacheEnabled" name="cacheEnabled" checked>
+                    <label for="cacheEnabled">⚡ Activer le cache (6h) pour de meilleures performances</label>
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn btn-primary" id="installBtn" disabled>
+                    <span>🚀</span><span>Installer dans Stremio</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="copyLinkBtn" disabled>
+                    <span>📋</span><span>Copier le lien d'installation</span>
+                </button>
+                <button type="submit" class="btn btn-secondary">
+                    <span>💾</span><span>Sauvegarder la configuration</span>
+                </button>
+            </div>
+        </form>
+        <div style="margin-top:30px; padding-top:20px; border-top:2px solid #e0e0e0; text-align:center; color:#666; font-size:12px;">
+            <p>📺 Compatible avec Stremio 4.4+</p>
+            <p style="margin-top:5px;">🔒 Tes identifiants sont stockés localement dans ton navigateur</p>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('configForm');
+        const installBtn = document.getElementById('installBtn');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const successBox = document.getElementById('successBox');
+        const errorBox = document.getElementById('errorBox');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('easynewsConfig');
+            if (saved) {
+                const config = JSON.parse(saved);
+                document.getElementById('username').value = config.username || '';
+                document.getElementById('password').value = config.password || '';
+                document.getElementById('maxResults').value = config.maxResults || '20';
+                document.getElementById('minQuality').value = config.minQuality || '720p';
+                document.getElementById('cacheEnabled').checked = config.cacheEnabled !== false;
+                if (config.username && config.password) {
+                    installBtn.disabled = false;
+                    copyLinkBtn.disabled = false;
+                }
+            }
+        });
+
+        function generateManifestUrl() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const maxResults = document.getElementById('maxResults').value;
+            const minQuality = document.getElementById('minQuality').value;
+            const cacheEnabled = document.getElementById('cacheEnabled').checked;
+            const config = btoa(JSON.stringify({
+                username, password,
+                maxResults: parseInt(maxResults),
+                minQuality, cacheEnabled
+            }));
+            return window.location.origin + '/' + config + '/manifest.json';
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (!username || !password) {
+                errorBox.style.display = 'block';
+                successBox.style.display = 'none';
+                return;
+            }
+            const config = {
+                username, password,
+                maxResults: document.getElementById('maxResults').value,
+                minQuality: document.getElementById('minQuality').value,
+                cacheEnabled: document.getElementById('cacheEnabled').checked
+            };
+            localStorage.setItem('easynewsConfig', JSON.stringify(config));
+            successBox.style.display = 'block';
+            errorBox.style.display = 'none';
+            installBtn.disabled = false;
+            copyLinkBtn.disabled = false;
+            setTimeout(() => { successBox.style.display = 'none'; }, 3000);
+        });
+
+        installBtn.addEventListener('click', () => {
+            const manifestUrl = generateManifestUrl();
+            const stremioUrl = manifestUrl.replace('http://', 'stremio://').replace('https://', 'stremio://');
+            window.location.href = stremioUrl;
+            setTimeout(() => {
+                alert('✅ Si Stremio ne s\'ouvre pas automatiquement, copie le lien et ajoute-le manuellement dans Stremio → Addons → Community Addons');
+            }, 1000);
+        });
+
+        copyLinkBtn.addEventListener('click', async () => {
+            const manifestUrl = generateManifestUrl();
+            try {
+                await navigator.clipboard.writeText(manifestUrl);
+                const originalText = copyLinkBtn.innerHTML;
+                copyLinkBtn.innerHTML = '<span>✅</span><span>Lien copié !</span>';
+                copyLinkBtn.style.background = '#d4edda';
+                copyLinkBtn.style.color = '#155724';
+                setTimeout(() => {
+                    copyLinkBtn.innerHTML = originalText;
+                    copyLinkBtn.style.background = '';
+                    copyLinkBtn.style.color = '';
+                }, 2000);
+            } catch (err) {
+                const input = document.createElement('input');
+                input.value = manifestUrl;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert('📋 Lien copié : ' + manifestUrl);
+            }
+        });
+
+        document.getElementById('username').addEventListener('input', checkFields);
+        document.getElementById('password').addEventListener('input', checkFields);
+
+        function checkFields() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username && password) {
+                installBtn.disabled = false;
+                copyLinkBtn.disabled = false;
+            } else {
+                installBtn.disabled = true;
+                copyLinkBtn.disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
